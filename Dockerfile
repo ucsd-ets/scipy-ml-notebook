@@ -64,9 +64,9 @@ RUN pip install --no-cache-dir git+https://github.com/agt-ucsd/nbresuse.git && \
 RUN conda install -c conda-forge --yes  \
                 cudatoolkit=9.0 \
                 cudnn nccl \
-		tensorboard=1.12.2 \
-		tensorflow=1.12.0 \
-		tensorflow-gpu=1.12.0 \
+		tensorboard=1.14.0 \
+		tensorflow=1.14.0 \
+		tensorflow-gpu=1.14.0 \
         && conda install -c pytorch --yes \
                 pytorch \
                 torchvision \
