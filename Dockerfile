@@ -28,9 +28,10 @@ RUN apt-get update && apt-get -qq install -y \
 ######################################
 # CLI (non-conda) CUDA compilers, etc. (9.0 due to older drivers on our nodes)
 # nb: cuda-9-0 requires gcc6
-COPY cuda-repo-ubuntu1804_10.1.168-1_amd64.deb /root/ 
+COPY cuda-repo-ubuntu1804_10.0.130-1_amd64.deb /root/
+#COPY cuda-repo-ubuntu1804_10.1.168-1_amd64.deb /root/ 
 #COPY cuda-repo-ubuntu1704_9.0.176-1_amd64.deb /root/ 
-RUN dpkg -i /root/cuda-repo-ubuntu1804_10.1.168-1_amd64.deb && \
+RUN dpkg -i /root/cuda-repo-ubuntu1804_10.0.130-1_amd64.deb && \
 	apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1704/x86_64/7fa2af80.pub && \
 	apt-get update && \
 	apt-get install -y cuda-libraries-dev-10-0 cuda-core-10-0 cuda-minimal-build-10-0 cuda-command-line-tools-10-0 && \
@@ -68,6 +69,7 @@ RUN set -x && conda install -c conda-forge --yes  \
 		tensorboard=1.14.0 \
 		tensorflow=1.14.0 \
 		tensorflow-gpu=1.14.0 \
+                numpy==
         && conda install -c pytorch --yes \
                 pytorch \
                 torchvision \
