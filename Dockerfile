@@ -69,7 +69,7 @@ RUN set -x && conda install -c conda-forge --yes  \
 		tensorboard=1.14.0 \
 		tensorflow=1.14.0 \
 		tensorflow-gpu=1.14.0 \
-                numpy==
+                numpy=1.16.4 \
         && conda install -c pytorch --yes \
                 pytorch \
                 torchvision \
