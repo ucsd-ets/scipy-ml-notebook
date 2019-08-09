@@ -26,17 +26,13 @@ RUN apt-get update && apt-get -qq install -y \
 	chmod 1777 /var/run/screen
 
 ######################################
-# CLI (non-conda) CUDA compilers, etc. (9.0 due to older drivers on our nodes)
-# nb: cuda-9-0 requires gcc6
-COPY cuda-repo-ubuntu1804_10.0.130-1_amd64.deb /root/
-#COPY cuda-repo-ubuntu1804_10.1.168-1_amd64.deb /root/ 
-#COPY cuda-repo-ubuntu1704_9.0.176-1_amd64.deb /root/ 
-RUN dpkg -i /root/cuda-repo-ubuntu1804_10.0.130-1_amd64.deb && \
-	apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1704/x86_64/7fa2af80.pub && \
+# CLI (non-conda) CUDA compilers, etc.
+
+ENV CUDAREPO https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-repo-ubuntu1804_10.0.130-1_amd64.deb
+RUN P=/tmp/$(basename $CUDAREPO) && curl -s -o $P $CUDAREPO && dpkg -i $P && \
+	apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub && \
 	apt-get update && \
-	apt-get install -y cuda-libraries-dev-10-0 cuda-core-10-0 cuda-minimal-build-10-0 cuda-command-line-tools-10-0 && \
-	apt-get install -y gcc-6 g++-6 g++-6-multilib && \
-	update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 60 --slave /usr/bin/g++ g++ /usr/bin/g++-6 && \
+	apt-get install -y cuda-libraries-dev-10-0 cuda-compiler-10-0 cuda-minimal-build-10-0 cuda-command-line-tools-10-0 && \
 	apt-get clean && \
 	ln -s cuda-10.0 /usr/local/cuda && \
 	ln -s /usr/lib64/nvidia/libcuda.so /usr/lib64/nvidia/libcuda.so.1 /usr/local/cuda/lib64/
@@ -63,11 +59,12 @@ RUN pip install --no-cache-dir git+https://github.com/agt-ucsd/nbresuse.git && \
 
 ###########################
 # Now the ML toolkits (cuda9 until we update our Nvidia drivers)
-RUN set -x && conda install -c conda-forge --yes  \
-                cudatoolkit=9.0 \
+RUN conda install -c anaconda --yes  \
+                cudatoolkit=10.0 \
                 cudnn nccl \
 		tensorboard=1.14.0 \
 		tensorflow=1.14.0 \
+		tensorflow-base=1.14.0 \
 		tensorflow-gpu=1.14.0 \
                 numpy=1.16.4 \
         && conda install -c pytorch --yes \
