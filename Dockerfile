@@ -3,13 +3,15 @@
 ARG BASE_CONTAINER=jupyter/scipy-notebook:2ce7c06a61a1
 ARG DATAHUB_CONTAINER=ucsdets/datahub-base-notebook:2019.4.1-fa19
 
+FROM $DATAHUB_CONTAINER as datahub
+
 FROM $BASE_CONTAINER
 
 LABEL maintainer="UC San Diego ITS/ETS <ets-consult@ucsd.edu>"
 
 USER root
 
-COPY --from=$DATAHUB_CONTAINER /usr/share/datahub/scripts/* /usr/share/datahub/scripts/
+COPY --from=datahub /usr/share/datahub/scripts/* /usr/share/datahub/scripts/
 RUN /usr/share/datahub/scripts/install-utilities.sh
 
 ######################################
@@ -64,4 +66,4 @@ COPY pip-requirements.txt /tmp
 RUN pip install --no-cache-dir -r /tmp/pip-requirements.txt  && \
 	fix-permissions $CONDA_DIR
 
-COPY --from=$DATAHUB_CONTAINER /run_jupyter.sh /
+COPY --from=datahub /run_jupyter.sh /
