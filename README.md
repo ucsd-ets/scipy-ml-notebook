@@ -1,6 +1,6 @@
 # SciPy / ML Jupyter Notebook
 
-This image is intended for use on the UCSD DataHub platform.
+This Jupyter notebook is intended for use on the UCSD DataHub platform.
 
 # Base Images
 
