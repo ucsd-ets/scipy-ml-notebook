@@ -1,32 +1,16 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
 ARG BASE_CONTAINER=jupyter/scipy-notebook:45b8529a6bfc
+ARG DATAHUB_CONTAINER=ucsdets/datahub-base-notebook:latest
+
 FROM $BASE_CONTAINER
 
 LABEL maintainer="UC San Diego ITS/ETS <ets-consult@ucsd.edu>"
 
 USER root
 
-######################################
-# basic linux commands
-# note that 'screen' requires additional help
-# to function within a 'kubectl exec' terminal environment
-#RUN apt-get update && apt-get -qq install -y \
-#        	curl \
-#        	rsync \
-#        	unzip \
-#        	less nano vim \
-#        	openssh-client \
-#		cmake \
-#		tmux \
-#		screen \
-#		gnupg \
-#       	wget && \
-#	chmod g-s /usr/bin/screen && \
-#	chmod 1777 /var/run/screen
-COPY --from=ucsdets/datahub-base-notebook /usr/share/datahub/scripts/* /usr/share/datahub/scripts/
+COPY --from=$DATAHUB_CONTAINER /usr/share/datahub/scripts/* /usr/share/datahub/scripts/
 RUN /usr/share/datahub/scripts/install-utilities.sh
-
 
 ######################################
 # CLI (non-conda) CUDA compilers, etc.
@@ -51,17 +35,8 @@ RUN pip install --no-cache-dir datascience okpy PyQt5 && \
 	conda remove --quiet --yes --force qt pyqt || true && \
 	conda clean -tipsy
 
-RUN /usr/share/datahub/scripts/install-ipywidgets.sh
-RUN /usr/share/datahub/scripts/install-nbresuse.sh
-
-#RUN pip install --no-cache-dir ipywidgets && \
-#	jupyter nbextension enable --sys-prefix --py widgetsnbextension
-
-# hacked local version of nbresuse to show GPU activity
-#RUN pip install --no-cache-dir git+https://github.com/agt-ucsd/nbresuse.git && \
-#	jupyter serverextension enable --sys-prefix --py nbresuse && \
-#	jupyter nbextension install --sys-prefix --py nbresuse && \
-#	jupyter nbextension enable --sys-prefix --py nbresuse
+RUN /usr/share/datahub/scripts/install-ipywidgets.sh && \
+  /usr/share/datahub/scripts/install-nbresuse.sh
 
 ###########################
 # Now the ML toolkits (cuda9 until we update our Nvidia drivers)
@@ -89,5 +64,4 @@ COPY pip-requirements.txt /tmp
 RUN pip install --no-cache-dir -r /tmp/pip-requirements.txt  && \
 	fix-permissions $CONDA_DIR
 
-COPY run_jupyter.sh /
-
+COPY --from=$DATAHUB_CONTAINER /run_jupyter.sh /
