@@ -11,19 +11,22 @@ USER root
 # basic linux commands
 # note that 'screen' requires additional help
 # to function within a 'kubectl exec' terminal environment
-RUN apt-get update && apt-get -qq install -y \
-        	curl \
-        	rsync \
-        	unzip \
-        	less nano vim \
-        	openssh-client \
-		cmake \
-		tmux \
-		screen \
-		gnupg \
-        	wget && \
-	chmod g-s /usr/bin/screen && \
-	chmod 1777 /var/run/screen
+#RUN apt-get update && apt-get -qq install -y \
+#        	curl \
+#        	rsync \
+#        	unzip \
+#        	less nano vim \
+#        	openssh-client \
+#		cmake \
+#		tmux \
+#		screen \
+#		gnupg \
+#       	wget && \
+#	chmod g-s /usr/bin/screen && \
+#	chmod 1777 /var/run/screen
+COPY --from=ucsdets/datahub-base-notebook /usr/share/datahub/scripts/* /usr/share/datahub/scripts/
+RUN /usr/share/datahub/scripts/install-utilities.sh
+
 
 ######################################
 # CLI (non-conda) CUDA compilers, etc.
@@ -48,14 +51,17 @@ RUN pip install --no-cache-dir datascience okpy PyQt5 && \
 	conda remove --quiet --yes --force qt pyqt || true && \
 	conda clean -tipsy
 
-RUN pip install --no-cache-dir ipywidgets && \
-	jupyter nbextension enable --sys-prefix --py widgetsnbextension
+RUN /usr/share/datahub/scripts/install-ipywidgets.sh
+RUN /usr/share/datahub/scripts/install-nbresuse.sh
+
+#RUN pip install --no-cache-dir ipywidgets && \
+#	jupyter nbextension enable --sys-prefix --py widgetsnbextension
 
 # hacked local version of nbresuse to show GPU activity
-RUN pip install --no-cache-dir git+https://github.com/agt-ucsd/nbresuse.git && \
-	jupyter serverextension enable --sys-prefix --py nbresuse && \
-	jupyter nbextension install --sys-prefix --py nbresuse && \
-	jupyter nbextension enable --sys-prefix --py nbresuse
+#RUN pip install --no-cache-dir git+https://github.com/agt-ucsd/nbresuse.git && \
+#	jupyter serverextension enable --sys-prefix --py nbresuse && \
+#	jupyter nbextension install --sys-prefix --py nbresuse && \
+#	jupyter nbextension enable --sys-prefix --py nbresuse
 
 ###########################
 # Now the ML toolkits (cuda9 until we update our Nvidia drivers)
