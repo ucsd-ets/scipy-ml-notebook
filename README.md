@@ -4,8 +4,8 @@ This Jupyter notebook is intended for use on the UCSD DataHub platform.
 
 # Base Images
 
-* https://hub.docker.com/r/jupyter/scipy-notebook
-* https://hub.docker.com/r/ucsdets/datahub-base-notebook
+* [jupyter/scipy-notebook](https://hub.docker.com/r/jupyter/scipy-notebook)
+* [ucsdets/datahub-base-notebook](https://hub.docker.com/r/ucsdets/datahub-base-notebook)
 
 # Packages
 
