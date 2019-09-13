@@ -1,7 +1,7 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
 ARG BASE_CONTAINER=jupyter/scipy-notebook:2ce7c06a61a1
-ARG DATAHUB_CONTAINER=ucsdets/datahub-base-notebook:2019.4.1-fa19
+ARG DATAHUB_CONTAINER=ucsdets/datahub-base-notebook:2019.4.2
 
 FROM $DATAHUB_CONTAINER as datahub
 
@@ -38,7 +38,8 @@ RUN pip install --no-cache-dir datascience okpy PyQt5 && \
 	conda clean -tipsy
 
 RUN /usr/share/datahub/scripts/install-ipywidgets.sh && \
-  /usr/share/datahub/scripts/install-nbresuse.sh
+  /usr/share/datahub/scripts/install-nbresuse.sh && \
+	/usr/share/datahub/scripts/install-nbgrader.sh
 
 ###########################
 # Now the ML toolkits (cuda9 until we update our Nvidia drivers)

@@ -22,6 +22,7 @@ This Jupyter notebook is intended for use on the UCSD DataHub platform.
 | tensorflow  | 1.14    |
 | numpy       | 1.16.4  |
 | pytorch     | latest  |
+| nbgrader    | 0.6.0  |
 
 **GPU Support**
 
@@ -29,7 +30,11 @@ CUDA 10.0
 
 # Changes
 
-**2019.4.1 (Fall 2019)**
+**2019.4.2 (9/13/2019)**
+
+* Added nbgrader
+
+**2019.4.1 (8/3/2019)**
 
 * Updated Python packages:
   * tensorflow 1.14
