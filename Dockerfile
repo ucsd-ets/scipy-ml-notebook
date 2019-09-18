@@ -10,7 +10,7 @@ LABEL maintainer="UC San Diego ITS/ETS <ets-consult@ucsd.edu>"
 USER root
 
 COPY --from=datahub /usr/share/datahub/scripts/* /usr/share/datahub/scripts/
-RUN /usr/share/datahub/scripts/install-utilities.sh
+RUN /usr/share/datahub/scripts/install-all.sh
 
 ######################################
 # CLI (non-conda) CUDA compilers, etc.
@@ -34,10 +34,6 @@ RUN pip install --no-cache-dir datascience okpy PyQt5 && \
 	python -c 'import matplotlib.pyplot' && \
 	conda remove --quiet --yes --force qt pyqt || true && \
 	conda clean -tipsy
-
-RUN /usr/share/datahub/scripts/install-ipywidgets.sh && \
-  /usr/share/datahub/scripts/install-nbresuse.sh && \
-	/usr/share/datahub/scripts/install-nbgrader.sh
 
 ###########################
 # Now the ML toolkits (cuda9 until we update our Nvidia drivers)
