@@ -1,7 +1,5 @@
-# Copyright (c) Jupyter Development Team.
-# Distributed under the terms of the Modified BSD License.
 ARG BASE_CONTAINER=jupyter/scipy-notebook:2ce7c06a61a1
-ARG DATAHUB_CONTAINER=ucsdets/datahub-base-notebook:2019.4.3
+ARG DATAHUB_CONTAINER=ucsdets/datahub-base-notebook:2019.4.6
 
 FROM $DATAHUB_CONTAINER as datahub
 
