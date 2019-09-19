@@ -24,10 +24,6 @@ RUN P=/tmp/$(basename $CUDAREPO) && curl -s -o $P $CUDAREPO && dpkg -i $P && \
 	ln -s cuda-10.0 /usr/local/cuda && \
 	ln -s /usr/lib64/nvidia/libcuda.so /usr/lib64/nvidia/libcuda.so.1 /usr/local/cuda/lib64/
 
-######################################
-# Install python packages unprivileged where possible
-USER $NB_UID:$NB_GID
-
 # Pre-generate font cache so the user does not see fc-list warning when
 # importing datascience. https://github.com/matplotlib/matplotlib/issues/5836
 RUN pip install --no-cache-dir datascience okpy PyQt5 && \
@@ -62,3 +58,7 @@ RUN pip install --no-cache-dir -r /tmp/pip-requirements.txt  && \
 	fix-permissions $CONDA_DIR
 
 COPY --from=datahub /run_jupyter.sh /
+
+######################################
+# Install python packages unprivileged where possible
+USER $NB_UID:$NB_GID
