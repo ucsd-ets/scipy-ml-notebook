@@ -56,7 +56,7 @@ RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86
 
 ARG APIKEY
 RUN mkdir /tmp/cuda
-RUN	curl -H "Authorization: ${APIKEY}" https://dsmlp-users.ucsd.edu/files/nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb --output /tmp/cuda/nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
+RUN	curl -H https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb --output /tmp/cuda/nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
 
 RUN	dpkg -i /tmp/cuda/nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb && \
 	rm -rf /tmp/cuda
