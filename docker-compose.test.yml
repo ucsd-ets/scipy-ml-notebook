@@ -1,0 +1,15 @@
+version: "2.2"
+services:
+    jupyter:
+        build: .
+        command: bash -c "/usr/share/datahub/tests/scipy-ml-notebook/test.sh; /usr/share/datahub/tests/datahub-base-notebook/test.sh; jupyter notebook --NotebookApp.token='' --allow-root"
+        user: root
+        ports:
+        - "8889:8888"
+    sut:
+        image: ucsdets/notebook-tests:latest
+        links:
+        - jupyter
+        command:
+        - python
+        - /opt/datahub/test-ui.py
