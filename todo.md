@@ -1,0 +1,2 @@
+Test cudatoolkit inside kernel
+

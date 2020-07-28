@@ -1,0 +1,19 @@
+name: tensorflow1
+channels:
+  - conda-forge
+  - defaults
+  - pytorch
+dependencies:
+- pandas
+- numpy
+- matplotlib
+- cudatoolkit=9.0
+- tensorflow
+- tensorflow-gpu
+- pip
+- python=3.7
+- pytorch
+- gym
+- pyglet
+- pip:
+  - ipywidgets
