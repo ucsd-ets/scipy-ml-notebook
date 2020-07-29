@@ -19,8 +19,8 @@ RUN pip install tensorflow-gpu==1.15 \
 RUN pip install torch==1.2.0 torchvision==0.4.0 -f https://download.pytorch.org/whl/torch_stable.html
 RUN jupyter tensorboard enable --sys-prefix
 
-COPY ./kernels/ml-latest.yml /usr/share/datahub/kernels/ml-latest.yml
-
+COPY ./kernels /usr/share/datahub/kernels
+RUN ls /usr/share/datahub/kernels
 RUN conda env create --file /usr/share/datahub/kernels/ml-latest.yml
 
 RUN conda init bash && \
