@@ -1,0 +1,23 @@
+name: ml-latest
+channels:
+- conda-forge
+- defaults
+- pytorch
+dependencies:
+- pip
+- nccl
+- cudnn
+- cudatoolkit=10.1
+- pip:
+  - ipywidgets
+  - nltk
+  - scapy
+  - tensorflow-gpu>=2.2
+  - numpy
+  - matplotlib
+  - pandas
+  - scapy
+  - datascience
+  - plotly
+  - bokeh
+  - seaborn
