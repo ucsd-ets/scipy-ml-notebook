@@ -21,3 +21,4 @@ dependencies:
   - plotly
   - bokeh
   - seaborn
+  - opencv-python

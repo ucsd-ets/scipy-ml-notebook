@@ -1,20 +1,23 @@
 FROM ucsdets/datahub-base-notebook:2020.2-stable
 
 USER root
-ENV https_proxy=http://web.ucsd.edu:3128
+
+# tensorflow, pytorch stable versions
+# https://pytorch.org/get-started/previous-versions/
+# https://www.tensorflow.org/install/source#linux
 
 RUN conda install cudatoolkit=10.0 -y
 RUN conda install cudnn -y
 RUN conda install nccl -y
 
-#RUN conda install tensorflow-gpu=1.15
 RUN pip install tensorflow-gpu==1.15 \
 		datascience \
 		PyQt5 \
 		scapy \
 		nltk \
 		opencv-contrib-python-headless==3.4.5.20 \
-		jupyter-tensorboard
+		jupyter-tensorboard \
+		opencv-python
 
 RUN pip install torch==1.2.0 torchvision==0.4.0 -f https://download.pytorch.org/whl/torch_stable.html
 RUN jupyter tensorboard enable --sys-prefix
