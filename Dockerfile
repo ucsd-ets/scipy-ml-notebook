@@ -29,6 +29,6 @@ RUN conda env create --file /usr/share/datahub/kernels/ml-latest.yml
 RUN conda init bash && \
 	conda run -n ml-latest /bin/bash -c "pip install torch==1.5.0+cu101 torchvision==0.6.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html; ipython kernel install --name=ml-latest"
 
-RUN fix-permissions $CONDA_DIR
+#RUN fix-permissions $CONDA_DIR
 
 USER $NB_UID:$NB_GID
