@@ -28,9 +28,9 @@ RUN pip install --no-cache-dir torch==1.2.0 torchvision==0.4.0 -f https://downlo
 RUN jupyter tensorboard enable --sys-prefix
 
 COPY ./kernels /usr/share/datahub/kernels
-RUN conda env create --file /usr/share/datahub/kernels/ml-latest.yml 
-RUN conda init bash
-RUN conda run -n ml-latest /bin/bash -c "pip install torch==1.5.0+cu101 torchvision==0.6.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html; ipython kernel install --name=ml-latest"
+RUN conda env create --file /usr/share/datahub/kernels/ml-latest.yml && \
+	conda init bash && \
+	conda run -n ml-latest /bin/bash -c "pip install torch==1.5.0+cu101 torchvision==0.6.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html; ipython kernel install --name=ml-latest"
 
 COPY ./tests/ /usr/share/datahub/tests/scipy-ml-notebook
 RUN chmod -R +x /usr/share/datahub/tests/scipy-ml-notebook
