@@ -22,4 +22,3 @@ dependencies:
   - bokeh
   - seaborn
   - opencv-python
-  - pycocotools
