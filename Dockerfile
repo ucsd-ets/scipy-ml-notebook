@@ -35,4 +35,6 @@ RUN conda env create --file /usr/share/datahub/kernels/ml-latest.yml && \
 COPY ./tests/ /usr/share/datahub/tests/scipy-ml-notebook
 RUN chmod -R +x /usr/share/datahub/tests/scipy-ml-notebook
 
+ENV PATH="/usr/local/nvidia/bin:$PATH"
+
 USER $NB_UID:$NB_GID
