@@ -1,4 +1,4 @@
-FROM ucsdets/datahub-base-notebook:2020.2-stable
+FROM ucsdets/datahub-base-notebook:dev
 
 USER root
 
@@ -40,6 +40,7 @@ RUN conda env create --file /usr/share/datahub/kernels/ml-latest.yml && \
 COPY ./run_jupyter.sh /
 
 COPY ./tests/ /usr/share/datahub/tests/scipy-ml-notebook
-RUN chmod -R +x /usr/share/datahub/tests/scipy-ml-notebook
+RUN chmod -R +x /usr/share/datahub/tests/scipy-ml-notebook && \
+    chown -R 1000:1000 /home/jovyan
 
 USER $NB_UID:$NB_GID

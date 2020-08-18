@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker run -e "NB_UID=1000" -p 8888:8888 -t ucsdets/scipy-ml-notebook:2020.2-stable jupyter notebook --ip 0.0.0.0
