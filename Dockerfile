@@ -16,15 +16,16 @@ RUN conda install cudatoolkit=10.0 \
 				  -y
 
 # Install pillow<7 due to dependency issue https://github.com/pytorch/vision/issues/1712
-RUN pip install --no-cache-dir tensorflow-gpu==1.15.0 \
+RRUN pip install --no-cache-dir tensorflow-gpu==1.15.0 \
 								datascience \
 								PyQt5 \
 								scapy \
 								nltk \
-								opencv-contrib-python-headless \
+								opencv-contrib-python-headless==3.4.5.20 \
 								jupyter-tensorboard \
 								opencv-python \
-								pycocotools
+								pycocotools \
+								"pillow<7"
 
 # torch must be installed separately since it requires a non-pypi repo. See stable version above
 RUN pip install --no-cache-dir torch==1.2.0 torchvision==0.4.0 -f https://download.pytorch.org/whl/torch_stable.html && \
