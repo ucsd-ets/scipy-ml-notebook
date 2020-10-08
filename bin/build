@@ -1,2 +1,2 @@
 #!/bin/bash
-docker build -t ucsdets/scipy-ml-notebook:2020.2-stable .
+docker build -t ucsdets/scipy-ml-notebook:dev .

@@ -21,11 +21,10 @@ RUN pip install --no-cache-dir tensorflow-gpu==1.15.0 \
 								PyQt5 \
 								scapy \
 								nltk \
-								opencv-contrib-python-headless==3.4.5.20 \
+								opencv-contrib-python-headless \
 								jupyter-tensorboard \
 								opencv-python \
-								pycocotools \
-								"pillow<7"
+								pycocotools
 
 # torch must be installed separately since it requires a non-pypi repo. See stable version above
 RUN pip install --no-cache-dir torch==1.2.0 torchvision==0.4.0 -f https://download.pytorch.org/whl/torch_stable.html && \
@@ -42,5 +41,7 @@ COPY ./run_jupyter.sh /
 COPY ./tests/ /usr/share/datahub/tests/scipy-ml-notebook
 RUN chmod -R +x /usr/share/datahub/tests/scipy-ml-notebook && \
     chown -R 1000:1000 /home/jovyan
+
+RUN chown -R 1000:1000 /home/jovyan
 
 USER $NB_UID:$NB_GID
