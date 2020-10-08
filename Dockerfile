@@ -1,4 +1,4 @@
-FROM ucsdets/datahub-base-notebook:dev
+FROM ucsdets/datahub-base-notebook:2020.2-stable
 
 USER root
 
