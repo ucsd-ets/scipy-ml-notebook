@@ -16,7 +16,7 @@ RUN conda install cudatoolkit=10.0 \
 				  -y
 
 # Install pillow<7 due to dependency issue https://github.com/pytorch/vision/issues/1712
-RRUN pip install --no-cache-dir tensorflow-gpu==1.15.0 \
+RUN pip install --no-cache-dir tensorflow-gpu==1.15.0 \
 								datascience \
 								PyQt5 \
 								scapy \
