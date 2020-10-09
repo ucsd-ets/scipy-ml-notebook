@@ -5,6 +5,7 @@ channels:
 - pytorch
 dependencies:
 - pip
+- python=3.8
 - nccl
 - cudnn
 - cudatoolkit=10.1
