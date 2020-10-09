@@ -41,8 +41,7 @@ COPY ./run_jupyter.sh /
 
 COPY ./tests/ /usr/share/datahub/tests/scipy-ml-notebook
 RUN chmod -R +x /usr/share/datahub/tests/scipy-ml-notebook && \
-    chown -R 1000:1000 /home/jovyan
-
-RUN chown -R 1000:1000 /home/jovyan
+    chown -R 1000:1000 /home/jovyan && \
+	chmod +x /run_jupyter.sh
 
 USER $NB_UID:$NB_GID
