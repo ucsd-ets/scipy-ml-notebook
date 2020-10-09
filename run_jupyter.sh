@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
-export PATH=$PATH:/usr/local/nvidia/bin
+NVIDIA_PATH=/usr/local/nvidia/bin
+
+grep -qF "${NVIDIA_PATH}" ~/.bashrc || echo "export PATH=$PATH:${NVIDIA_PATH}" >> ~/.bashrc
 
 jupyter notebook "$@"
