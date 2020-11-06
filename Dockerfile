@@ -46,5 +46,8 @@ RUN chmod -R +x /usr/share/datahub/tests/scipy-ml-notebook && \
     chown -R 1000:1000 /home/jovyan && \
 	chmod +x /run_jupyter.sh
 
+RUN ln -s /usr/local/nvidia/bin/nvidia-smi /opt/conda/bin/nvidia-smi
+RUN ln -s /usr/local/nvidia/bin/nvidia-smi /opt/conda/envs/ml-latest/bin/nvidia-smi
+
 USER $NB_UID:$NB_GID
 ENV PATH=${PATH}:/usr/local/nvidia/bin
