@@ -37,7 +37,7 @@ RUN conda env create --file /usr/share/datahub/kernels/ml-latest.yml && \
 	conda run -n ml-latest /bin/bash -c "pip install torch==1.5.0+cu101 torchvision==0.6.0+cu101 pytorch-ignite -f https://download.pytorch.org/whl/torch_stable.html; \
 										 ipython kernel install --name=ml-latest"
 
-COPY ./run_jupyter.sh /
+RUN chown -R 1000:1000 /home/jovyan
 
 COPY ./tests/ /usr/share/datahub/tests/scipy-ml-notebook
 RUN chmod -R +x /usr/share/datahub/tests/scipy-ml-notebook && \
