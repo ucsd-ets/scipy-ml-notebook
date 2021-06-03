@@ -2,4 +2,4 @@
 
 docker run \
     -p 8889:8888 \
-    -ti ucsdets/scipy-ml-notebook:2020.2-stable /bin/bash
+    -ti ucsdets/scipy-ml-notebook:dev /bin/bash

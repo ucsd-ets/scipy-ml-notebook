@@ -1,4 +1,4 @@
-FROM ucsdets/datahub-base-notebook:2021.1-stable
+FROM ucsdets/datahub-base-notebook:2021.2.0
 
 USER root
 
@@ -8,7 +8,8 @@ USER root
 
 RUN apt-get update && \
 	apt-get install -y \
-			libtinfo5
+			libtinfo5 \
+			nvidia-cuda-toolkit.
 
 RUN conda install cudatoolkit=10.1 \
 				  cudnn \
