@@ -20,4 +20,10 @@ if ! test -f "${SCIPY_ML_TESTDIR}/scipy-ml-notebook-cpu.html"; then
     exit 1
 fi
 
+if ! nvcc --version; then
+    echo "Integration test failed"
+    echo "Nvidia Compiler(nvcc) does not exist"
+    exit 1
+fi
+
 echo "scipy-ml-notebook tests passed!"
