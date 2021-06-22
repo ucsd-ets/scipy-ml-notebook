@@ -11,7 +11,8 @@ RUN apt-get update && \
 			libtinfo5 \
 			nvidia-cuda-toolkit.
 
-RUN conda install cudatoolkit=10.1 \
+#RUN conda install cudatoolkit=10.1 \
+RUN conda install cudatoolkit=10.2 \
 				  cudnn \
 				  nccl \
 				  -y
@@ -29,7 +30,8 @@ RUN pip install --no-cache-dir  datascience \
 								tensorflow-gpu>=2.2
 
 # torch must be installed separately since it requires a non-pypi repo. See stable version above
-RUN pip install torch==1.5.0+cu101 torchvision==0.6.0+cu101 pytorch-ignite -f https://download.pytorch.org/whl/torch_stable.html;
+#RUN pip install torch==1.5.0+cu101 torchvision==0.6.0+cu101 pytorch-ignite -f https://download.pytorch.org/whl/torch_stable.html;
+RUN conda install pytorch torchvision torchaudio cudatoolkit=10.2 -c pytorch
 
 RUN	chown -R 1000:1000 /home/jovyan
 
