@@ -8,13 +8,14 @@ USER root
 
 RUN apt-get update && \
 	apt-get install -y \
-			libtinfo5 \
-			nvidia-cuda-toolkit.
+			libtinfo5 
 
 RUN conda install cudatoolkit=10.1 \
+				  cudatoolkit-dev=10.1\
 				  cudnn \
 				  nccl \
 				  -y
+
 
 # Install pillow<7 due to dependency issue https://github.com/pytorch/vision/issues/1712
 RUN pip install --no-cache-dir  datascience \
