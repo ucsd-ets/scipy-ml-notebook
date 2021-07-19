@@ -11,9 +11,8 @@ RUN apt-get update && \
 			libtinfo5 
 #			nvidia-cuda-toolkit
 
-#RUN conda install cudatoolkit=10.2 \
-RUN conda install cudatoolkit=10.1 \
-				  cudatoolkit-dev=10.1\
+RUN conda install cudatoolkit=11.2 \
+				  cudatoolkit-dev=11.2 \
 				  cudnn \
 				  nccl \
 				  -y
@@ -28,10 +27,12 @@ RUN pip install --no-cache-dir  datascience \
 								opencv-python \
 								pycocotools \
 								"pillow<7" \
-								tensorflow-gpu>=2.2
+								tensorflow-gpu>=2.2 \
+								torch \
+								torchvision
 
 # torch must be installed separately since it requires a non-pypi repo. See stable version above
-RUN pip install torch==1.5.0+cu101 torchvision==0.6.0+cu101 pytorch-ignite -f https://download.pytorch.org/whl/torch_stable.html;
+#RUN pip install torch==1.5.0+cu101 torchvision==0.6.0+cu101 pytorch-ignite -f https://download.pytorch.org/whl/torch_stable.html;
 #RUN conda install pytorch torchvision torchaudio cudatoolkit=10.2 -c pytorch
 
 RUN	chown -R 1000:1000 /home/jovyan
@@ -43,5 +44,7 @@ RUN chmod -R +x /usr/share/datahub/tests/scipy-ml-notebook && \
 
 RUN ln -s /usr/local/nvidia/bin/nvidia-smi /opt/conda/bin/nvidia-smi
 
+
 USER $NB_UID:$NB_GID
 ENV PATH=${PATH}:/usr/local/nvidia/bin
+ENV LD_LIBRARY_PATH=/opt/conda/pkgs/cudatoolkit-11.2.2-he111cf0_8/lib/:${LD_LIBRARY_PATH}
