@@ -2,17 +2,12 @@ FROM ucsdets/datahub-base-notebook:2021.2.2
 
 USER root
 
-# tensorflow, pytorch stable versions
-# https://pytorch.org/get-started/previous-versions/
-# https://www.tensorflow.org/install/source#linux
 
 RUN apt-get update && \
 	apt-get install -y \
 			libtinfo5 
-#			nvidia-cuda-toolkit
 
 RUN conda install cudatoolkit=11.2 \
-				  cudatoolkit-dev=11.2 \
 				  cudnn \
 				  nccl \
 				  -y
@@ -31,11 +26,6 @@ RUN pip install --no-cache-dir  datascience \
 								torch \
 								torchvision
 
-# torch must be installed separately since it requires a non-pypi repo. See stable version above
-#RUN pip install torch==1.5.0+cu101 torchvision==0.6.0+cu101 pytorch-ignite -f https://download.pytorch.org/whl/torch_stable.html;
-#RUN conda install pytorch torchvision torchaudio cudatoolkit=10.2 -c pytorch
-
-RUN	chown -R 1000:1000 /home/jovyan
 
 COPY ./tests/ /usr/share/datahub/tests/scipy-ml-notebook
 RUN chmod -R +x /usr/share/datahub/tests/scipy-ml-notebook && \
